@@ -10,7 +10,9 @@ public class ClickTile extends StackPane {
     
     private Rectangle rectangle;
     private Text text;
-    
+
+    private Tile tile;
+
     int x;
     int y;
     
@@ -29,7 +31,24 @@ public class ClickTile extends StackPane {
         
         getChildren().addAll(rectangle, text);
     }
+
+    public String getText() {
+        return text.getText();
+    }
     
-    
-    
+    public void setText(String value) {
+        text.setText(value);
+    }
+
+    public Tile getTile() {
+        return tile;
+    }
+
+    public void setTile(Tile tile) {
+        this.tile = tile;
+    }
+
+    public void setColor(Color color) {
+        rectangle.setFill(color);
+    }
 }
