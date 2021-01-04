@@ -11,18 +11,16 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import nl.erends.discozoo.animal.Animal;
 
 import java.util.List;
 
-
 public class Main extends Application {
     
     Game game = new Game();
     
-    ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna"));
+    ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "City"));
     
     ClickTile[][] grid = new ClickTile[5][5];
     CheckBox[] animals = new CheckBox[7];
@@ -88,13 +86,19 @@ public class Main extends Application {
         game.checkWanted();
         game.calcuateHeatMap();
         int highestValue = Integer.MIN_VALUE;
+        int mostAnimals = Integer.MIN_VALUE;
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 5; x++) {
                 ClickTile tile = grid[y][x];
                 if (tile.getTile() == null) {
-                    highestValue = Math.max(highestValue, game.heatmap[y][x]);
+                    if (game.heatmap[y][x] > highestValue) {
+                        highestValue = game.heatmap[y][x];
+                        mostAnimals = game.possibleAnmalsMap[y][x].size();
+                    } else if (game.heatmap[y][x] == highestValue) {
+                        mostAnimals = Math.max(mostAnimals, game.possibleAnmalsMap[y][x].size());
+                    }
                     tile.setText(Integer.toString(game.heatmap[y][x]));
-                    tile.setOnContextMenuRequested(e -> createContextMenu().show(tile, e.getScreenX(), e.getScreenY()));
+                    tile.setOnMouseClicked(e -> createContextMenu().show(tile, e.getScreenX(), e.getScreenY()));
                 }
             }
         }
@@ -102,7 +106,7 @@ public class Main extends Application {
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 5; x++) {
                 ClickTile tile = grid[y][x];
-                if (tile.getTile() == null && tile.getText().equals(Integer.toString(highestValue))) {
+                if (tile.getTile() == null && tile.getText().equals(Integer.toString(highestValue)) && game.possibleAnmalsMap[y][x].size() == mostAnimals) {
                     tile.setColor(Color.LIGHTPINK);
                 }
             }
@@ -116,6 +120,7 @@ public class Main extends Application {
             animals[i].setText(animalsStrings.get(i));
             animals[i].setSelected(false);
         }
+        resetGrid();
     }
 
     private void handleTileClick(ActionEvent event) {

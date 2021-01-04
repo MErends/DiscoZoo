@@ -5,8 +5,12 @@ import nl.erends.discozoo.animal.farm.Chicken;
 import nl.erends.discozoo.animal.farm.Unicorn;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Game {
     
@@ -14,6 +18,7 @@ public class Game {
     public List<Field> possibleFields = new ArrayList<>();
     public int[][] combinationsField = new int[5][5];
     public int[][] heatmap = new int[5][5];
+    public Set<Tile>[][] possibleAnmalsMap = new HashSet[5][5];
     private static final String HORIZONTAL = "+---+---+---+---+---+\n";
     private static final String EMPTY_LINE = "|   |   |   |   |   |\n";
     
@@ -65,6 +70,7 @@ public class Game {
                 int finalX = x;
                 int finalY = y;
                 combinationsField[y][x] = (int) possibleFields.stream().filter(f -> f.getTiles()[finalY][finalX] != null).count();
+                possibleAnmalsMap[y][x] = possibleFields.stream().map(f -> f.getTiles()[finalY][finalX]).filter(Objects::nonNull).collect(Collectors.toSet());
                 heatmap[y][x] = (int) Math.round(combinationsField[y][x] * 100D / possibleFields.size());
             }
         }
@@ -91,8 +97,6 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
-        game.setCurrentFieldTile(0, 0, Tile.UNICORN);
-        game.setCurrentFieldTile(2, 4, Tile.CHICKEN);
         game.addAnimal(new Chicken());
         game.addAnimal(new Unicorn());
         game.checkWanted();
