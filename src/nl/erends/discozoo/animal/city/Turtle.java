@@ -6,7 +6,7 @@ import nl.erends.discozoo.animal.Animal;
 public class Turtle extends Animal {
 
     public Turtle() {
-        this.tile = Tile.PIG;
+        this.tile = Tile.TURTLE;
         this.pattern = new Tile[][]{{tile, tile}};
     }
 }
