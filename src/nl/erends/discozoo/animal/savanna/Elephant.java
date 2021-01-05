@@ -6,7 +6,7 @@ import nl.erends.discozoo.animal.Animal;
 public class Elephant extends Animal {
 
     public Elephant() {
-        this.tile = Tile.KOALA;
+        this.tile = Tile.ELEPHANT;
         this.pattern = new Tile[][]{{tile, tile},
                                     {tile, null}};
     }

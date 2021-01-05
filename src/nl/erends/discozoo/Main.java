@@ -20,7 +20,7 @@ public class Main extends Application {
     
     Game game = new Game();
     
-    ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "City"));
+    ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "Jungle", "Jurassic", "Ice Age", "City"));
     
     ClickTile[][] grid = new ClickTile[5][5];
     CheckBox[] animals = new CheckBox[7];
