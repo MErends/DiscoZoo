@@ -20,7 +20,7 @@ public class Main extends Application {
     
     Game game = new Game();
     
-    ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "Jungle", "Jurassic", "Ice Age", "City"));
+    ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "Jungle", "Jurassic", "Ice Age", "City", "Mountain"));
     
     ClickTile[][] grid = new ClickTile[5][5];
     CheckBox[] animals = new CheckBox[7];
@@ -91,11 +91,17 @@ public class Main extends Application {
             for (int x = 0; x < 5; x++) {
                 ClickTile tile = grid[y][x];
                 if (tile.getTile() == null) {
-                    if (game.heatmap[y][x] > highestValue) {
+                    // if (game.heatmap[y][x] > highestValue) {
+                    //     highestValue = game.heatmap[y][x];
+                    //     mostAnimals = game.possibleAnmalsMap[y][x].size();
+                    // } else if (game.heatmap[y][x] == highestValue) {
+                    //     mostAnimals = Math.max(mostAnimals, game.possibleAnmalsMap[y][x].size());
+                    // }
+                    if (game.possibleAnmalsMap[y][x].size() > mostAnimals) {
                         highestValue = game.heatmap[y][x];
                         mostAnimals = game.possibleAnmalsMap[y][x].size();
-                    } else if (game.heatmap[y][x] == highestValue) {
-                        mostAnimals = Math.max(mostAnimals, game.possibleAnmalsMap[y][x].size());
+                    } else if (game.possibleAnmalsMap[y][x].size() == mostAnimals) {
+                        highestValue = Math.max(highestValue, game.heatmap[y][x]);
                     }
                     tile.setText(Integer.toString(game.heatmap[y][x]));
                     tile.setOnMouseClicked(e -> createContextMenu().show(tile, e.getScreenX(), e.getScreenY()));

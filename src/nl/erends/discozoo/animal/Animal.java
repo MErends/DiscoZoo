@@ -30,6 +30,13 @@ import nl.erends.discozoo.animal.jurassic.Raptor;
 import nl.erends.discozoo.animal.jurassic.Stegosaurus;
 import nl.erends.discozoo.animal.jurassic.Trex;
 import nl.erends.discozoo.animal.jurassic.Triceratops;
+import nl.erends.discozoo.animal.mountain.Aatxe;
+import nl.erends.discozoo.animal.mountain.Cougar;
+import nl.erends.discozoo.animal.mountain.Coyote;
+import nl.erends.discozoo.animal.mountain.Eagle;
+import nl.erends.discozoo.animal.mountain.Elk;
+import nl.erends.discozoo.animal.mountain.Goat;
+import nl.erends.discozoo.animal.mountain.Pika;
 import nl.erends.discozoo.animal.northern.Bear;
 import nl.erends.discozoo.animal.northern.Beaver;
 import nl.erends.discozoo.animal.northern.Fox;
@@ -68,6 +75,7 @@ public abstract class Animal {
         areaAnimalMap.put("Jurassic", Arrays.asList("Diplodocus", "Stegosaurus", "Raptor", "Trex", "Triceratops", "Dragon", "Ankylo"));
         areaAnimalMap.put("Ice Age", Arrays.asList("Wooly", "Sloth", "Wolf", "Sabertooth", "Mammoth", "Akhlut", "Camel"));
         areaAnimalMap.put("City", Arrays.asList("Pidgeon", "Raccoon", "Rat", "Opossum", "Squirrel", "Turtle", "Chipmunk"));
+        areaAnimalMap.put("Mountain", Arrays.asList("Goat", "Cougar", "Elk", "Eagle", "Coyote", "Aatxe", "Pika"));
     }
     
     
@@ -160,6 +168,14 @@ public abstract class Animal {
             case "opossum": return new Opossum();
             case "turtle": return new Turtle();
             case "chipmunk": return new Chipmunk();
+            
+            case "goat": return new Goat();
+            case "cougar": return new Cougar();
+            case "elk": return new Elk();
+            case "eagle": return new Eagle();
+            case "coyote": return new Coyote();
+            case "aatxe": return new Aatxe();
+            case "pika": return new Pika();
             
             default: throw new IllegalArgumentException(name);
         }
