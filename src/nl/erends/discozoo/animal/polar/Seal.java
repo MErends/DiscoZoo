@@ -7,8 +7,7 @@ public class Seal extends Animal {
 
     public Seal() {
         this.tile = Tile.SEAL;
-        this.pattern = new Tile[][]{{null, null, null, null},
-                                    {tile, null, null, null},
+        this.pattern = new Tile[][]{{tile, null, null, null},
                                     {null, tile, null, tile},
                                     {null, null, tile, null}};
     }

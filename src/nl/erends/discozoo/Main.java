@@ -11,6 +11,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nl.erends.discozoo.animal.Animal;
 
@@ -18,12 +19,14 @@ import java.util.List;
 
 public class Main extends Application {
     
-    Game game = new Game();
+    static Game game = new Game();
     
-    ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "Jungle", "Jurassic", "Ice Age", "City", "Mountain"));
+    ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "Jungle", "Jurassic", "Ice Age", "City", "Mountain", "Moon", "Mars"));
     
-    ClickTile[][] grid = new ClickTile[5][5];
-    CheckBox[] animals = new CheckBox[7];
+    static ClickTile[][] grid = new ClickTile[5][5];
+    static CheckBox[] animals = new CheckBox[7];
+
+    static Text stateCount = new Text();
 
     public static void main(String[] args) {
         launch(args);
@@ -32,13 +35,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Group root = new Group();
-        primaryStage.setScene(new Scene(root, 1366, 768));
+        primaryStage.setScene(new Scene(root, 768, 768));
         
         for (int x = 0; x < 5; x++) {
             for (int y = 0; y < 5; y++) {
                 ClickTile clickTile = new ClickTile(x, y);
-                clickTile.setLayoutX(600f + 110 * x);
-                clickTile.setLayoutY(150f + 110 * y);
+                clickTile.setLayoutX(220f + 110 * x);
+                clickTile.setLayoutY(130f + 110 * y);
                 grid[y][x] = clickTile;
                 root.getChildren().add(clickTile);
             }
@@ -56,6 +59,10 @@ public class Main extends Application {
         areaComboBox.setLayoutY(100);
         areaComboBox.setOnAction(e -> this.handleAreaChange());
         root.getChildren().add(areaComboBox);
+
+        stateCount.setLayoutX(150);
+        stateCount.setLayoutY(150);
+        root.getChildren().add(stateCount);
         primaryStage.show();
     }
 
@@ -68,7 +75,7 @@ public class Main extends Application {
         refreshGrid();
     }
 
-    public void refreshGrid() {
+    public static void refreshGrid() {
         game = new Game();
         for (CheckBox checkBox : animals) {
             if (checkBox.isSelected()) {
@@ -91,12 +98,6 @@ public class Main extends Application {
             for (int x = 0; x < 5; x++) {
                 ClickTile tile = grid[y][x];
                 if (tile.getTile() == null) {
-                    // if (game.heatmap[y][x] > highestValue) {
-                    //     highestValue = game.heatmap[y][x];
-                    //     mostAnimals = game.possibleAnmalsMap[y][x].size();
-                    // } else if (game.heatmap[y][x] == highestValue) {
-                    //     mostAnimals = Math.max(mostAnimals, game.possibleAnmalsMap[y][x].size());
-                    // }
                     if (game.possibleAnmalsMap[y][x].size() > mostAnimals) {
                         highestValue = game.heatmap[y][x];
                         mostAnimals = game.possibleAnmalsMap[y][x].size();
@@ -104,7 +105,7 @@ public class Main extends Application {
                         highestValue = Math.max(highestValue, game.heatmap[y][x]);
                     }
                     tile.setText(Integer.toString(game.heatmap[y][x]));
-                    tile.setOnMouseClicked(e -> createContextMenu().show(tile, e.getScreenX(), e.getScreenY()));
+                    tile.buildContextMenu();
                 }
             }
         }
@@ -117,6 +118,7 @@ public class Main extends Application {
                 }
             }
         }
+        stateCount.setText(Integer.toString(game.possibleFields.size()));
     }
     
     private void handleAreaChange() {
@@ -127,30 +129,5 @@ public class Main extends Application {
             animals[i].setSelected(false);
         }
         resetGrid();
-    }
-
-    private void handleTileClick(ActionEvent event) {
-        MenuItem mi = (MenuItem) event.getSource();
-        ClickTile clickTile = (ClickTile) mi.getParentPopup().getOwnerNode();
-        clickTile.setText(mi.getText().substring(0, 1));
-        clickTile.setTile(Tile.valueOf(mi.getText().toUpperCase()));
-        refreshGrid();
-    }
-
-    private ContextMenu createContextMenu() {
-        ContextMenu contextMenu = new ContextMenu();
-        for (CheckBox cb : animals) {
-            if (cb.isSelected()) {
-                MenuItem menuItem = new MenuItem(cb.getText());
-                menuItem.setOnAction(this::handleTileClick);
-                contextMenu.getItems().add(menuItem);
-            }
-        }
-        contextMenu.getItems().add(new SeparatorMenuItem());
-
-        MenuItem menuItem = new MenuItem("Empty");
-        menuItem.setOnAction(this::handleTileClick);
-        contextMenu.getItems().add(menuItem);
-        return contextMenu;
     }
 }

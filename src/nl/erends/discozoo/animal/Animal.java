@@ -30,6 +30,20 @@ import nl.erends.discozoo.animal.jurassic.Raptor;
 import nl.erends.discozoo.animal.jurassic.Stegosaurus;
 import nl.erends.discozoo.animal.jurassic.Trex;
 import nl.erends.discozoo.animal.jurassic.Triceratops;
+import nl.erends.discozoo.animal.mars.Marsten;
+import nl.erends.discozoo.animal.mars.Marsmallow;
+import nl.erends.discozoo.animal.mars.Marsmoset;
+import nl.erends.discozoo.animal.mars.Marsmot;
+import nl.erends.discozoo.animal.mars.Martian;
+import nl.erends.discozoo.animal.mars.Rock;
+import nl.erends.discozoo.animal.mars.Rover;
+import nl.erends.discozoo.animal.moon.Babmoon;
+import nl.erends.discozoo.animal.moon.Jaderabbit;
+import nl.erends.discozoo.animal.moon.Lunarmoth;
+import nl.erends.discozoo.animal.moon.Lunartick;
+import nl.erends.discozoo.animal.moon.Moonicorn;
+import nl.erends.discozoo.animal.moon.Moonkey;
+import nl.erends.discozoo.animal.moon.Tribble;
 import nl.erends.discozoo.animal.mountain.Aatxe;
 import nl.erends.discozoo.animal.mountain.Cougar;
 import nl.erends.discozoo.animal.mountain.Coyote;
@@ -76,6 +90,8 @@ public abstract class Animal {
         areaAnimalMap.put("Ice Age", Arrays.asList("Wooly", "Sloth", "Wolf", "Sabertooth", "Mammoth", "Akhlut", "Camel"));
         areaAnimalMap.put("City", Arrays.asList("Pidgeon", "Raccoon", "Rat", "Opossum", "Squirrel", "Turtle", "Chipmunk"));
         areaAnimalMap.put("Mountain", Arrays.asList("Goat", "Cougar", "Elk", "Eagle", "Coyote", "Aatxe", "Pika"));
+        areaAnimalMap.put("Moon", Arrays.asList("Moonkey", "Lunartick", "Tribble", "Moonicorn", "Lunarmoth", "Jaderabbit", "Babmoon"));
+        areaAnimalMap.put("Mars", Arrays.asList("Marsmot", "Rock", "Marsmoset", "Martian", "Rover", "Marsmallow", "Marsten"));
     }
     
     
@@ -176,7 +192,23 @@ public abstract class Animal {
             case "coyote": return new Coyote();
             case "aatxe": return new Aatxe();
             case "pika": return new Pika();
-            
+
+            case "moonkey": return new Moonkey();
+            case "lunartick": return new Lunartick();
+            case "tribble": return new Tribble();
+            case "moonicorn": return new Moonicorn();
+            case "lunarmoth": return new Lunarmoth();
+            case "jaderabbit": return new Jaderabbit();
+            case "babmoon": return new Babmoon();
+
+            case "marsmot": return new Marsmot();
+            case "rock": return new Rock();
+            case "marsmoset": return new Marsmoset();
+            case "rover": return new Rover();
+            case "martian": return new Martian();
+            case "marsmallow": return new Marsmallow();
+            case "marsten": return new Marsten();
+
             default: throw new IllegalArgumentException(name);
         }
     }
