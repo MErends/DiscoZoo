@@ -72,6 +72,13 @@ public class ClickTile extends StackPane {
                 contextMenu.getItems().add(menuItem);
             }
         }
+        String pet = Main.petComboBox.getValue();
+        if (pet != null && !pet.equals("-")) {
+            MenuItem menuItem = new MenuItem(pet + ' ' + getPercentage(pet) + '%');
+            menuItem.setOnAction(this::handleTileClick);
+            contextMenu.getItems().add(menuItem);
+
+        }
         contextMenu.getItems().add(new SeparatorMenuItem());
         int emptyPercent = 0;
         try {

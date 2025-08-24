@@ -2,14 +2,10 @@ package nl.erends.discozoo;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -21,8 +17,8 @@ public class Main extends Application {
     
     static Game game = new Game();
     
-    ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "Jungle", "Jurassic", "Ice Age", "City", "Mountain", "Moon", "Mars"));
-    
+    static ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "Jungle", "Jurassic", "Ice Age", "City", "Mountain", "Moon", "Mars"));
+    static ComboBox<String> petComboBox = new ComboBox<>(FXCollections.observableArrayList("-", "PetTurtle", "Cat", "Dog", "PetRabbit", "Lizard"));
     static ClickTile[][] grid = new ClickTile[5][5];
     static CheckBox[] animals = new CheckBox[7];
 
@@ -60,6 +56,11 @@ public class Main extends Application {
         areaComboBox.setOnAction(e -> this.handleAreaChange());
         root.getChildren().add(areaComboBox);
 
+        petComboBox.setLayoutX(100);
+        petComboBox.setLayoutY(450);
+        petComboBox.setOnAction(e  -> resetGrid());
+        root.getChildren().add(petComboBox);
+
         stateCount.setLayoutX(150);
         stateCount.setLayoutY(150);
         root.getChildren().add(stateCount);
@@ -81,6 +82,9 @@ public class Main extends Application {
             if (checkBox.isSelected()) {
                 game.addAnimal(Animal.getAnimal(checkBox.getText()));
             }
+        }
+        if (petComboBox.getValue() != null && !petComboBox.getValue().equals("-")) {
+            game.addAnimal(Animal.getPet(petComboBox.getValue()));
         }
 
         for (int y = 0; y < 5; y++) {

@@ -111,6 +111,17 @@ public abstract class Animal {
         return pattern;
     }
 
+    public static Animal getPet(String name) {
+        switch (name) {
+            case "PetTurtle": return new nl.erends.discozoo.animal.pet.Turtle();
+            case "Cat": return new nl.erends.discozoo.animal.pet.Cat();
+            case "Dog": return new nl.erends.discozoo.animal.pet.Dog();
+            case "PetRabbit": return new nl.erends.discozoo.animal.pet.Rabbit();
+            case "Lizard": return new nl.erends.discozoo.animal.pet.Lizard();
+            default: return null;
+        }
+    }
+
     public static Animal getAnimal(String name) {
         switch (name.toLowerCase()) {
             case "chicken": return new Chicken();
