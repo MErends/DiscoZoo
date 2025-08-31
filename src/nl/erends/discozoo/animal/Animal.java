@@ -59,6 +59,7 @@ import nl.erends.discozoo.animal.northern.Otter;
 import nl.erends.discozoo.animal.northern.Sasquatch;
 import nl.erends.discozoo.animal.northern.Skunk;
 import nl.erends.discozoo.animal.outback.*;
+import nl.erends.discozoo.animal.pet.Hamster;
 import nl.erends.discozoo.animal.polar.Muskox;
 import nl.erends.discozoo.animal.polar.Owl;
 import nl.erends.discozoo.animal.polar.Penguin;
@@ -118,6 +119,8 @@ public abstract class Animal {
             case "Dog": return new nl.erends.discozoo.animal.pet.Dog();
             case "PetRabbit": return new nl.erends.discozoo.animal.pet.Rabbit();
             case "Lizard": return new nl.erends.discozoo.animal.pet.Lizard();
+            case "PetOwl": return new nl.erends.discozoo.animal.pet.Owl();
+            case "Hamster": return new Hamster();
             default: return null;
         }
     }

@@ -7,8 +7,8 @@ public class Cat extends Animal {
 
     public Cat() {
         this.tile = Tile.CAT;
-        this.pattern = new Tile[][]{{tile, tile, null},
-                {tile, null, null},
-                {tile, tile, null}};
+        this.pattern = new Tile[][]{{tile, tile},
+                {tile, null},
+                {tile, tile}};
     }
 }

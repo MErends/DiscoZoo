@@ -18,7 +18,7 @@ public class Main extends Application {
     static Game game = new Game();
     
     static ComboBox<String> areaComboBox = new ComboBox<>(FXCollections.observableArrayList("Farm", "Outback", "Savanna", "Northern", "Polar", "Jungle", "Jurassic", "Ice Age", "City", "Mountain", "Moon", "Mars"));
-    static ComboBox<String> petComboBox = new ComboBox<>(FXCollections.observableArrayList("-", "PetTurtle", "Cat", "Dog", "PetRabbit", "Lizard"));
+    static ComboBox<String> petComboBox = new ComboBox<>(FXCollections.observableArrayList("-", "PetTurtle", "Cat", "Dog", "PetRabbit", "Lizard", "PetOwl", "Hamster"));
     static ClickTile[][] grid = new ClickTile[5][5];
     static CheckBox[] animals = new CheckBox[7];
 
